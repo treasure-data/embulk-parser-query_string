@@ -6,7 +6,7 @@ module Embulk
   module Guess
     class QueryStringPluginTest < Test::Unit::TestCase
       class TestGuessLines < self
-        def test_parse_line_without_options
+        def test_guess_1
           actual = QueryString.new.guess_lines(config, sample_lines_1)
           expected = {
             "parser" => {
@@ -20,6 +20,23 @@ module Embulk
           }
           assert_equal(expected, actual)
         end
+
+        def test_guess_2
+          actual = QueryString.new.guess_lines(config, sample_lines_2)
+          expected = {
+            "parser" => {
+              type: "query-string",
+              schema: [
+                {name: "foo", type: :long},
+                {name: "bar", type: :string},
+                {name: "baz", type: :string},
+                {name: "hoge", type: :long},
+                {name: "xxx", type: :string},
+              ]
+            }
+          }
+          assert_equal(expected, actual)
+        end
       end
 
       private
@@ -28,6 +45,13 @@ module Embulk
         [
           %Q(foo=1&bar=vv&baz=3),
           %Q(foo=2&bar=ss&baz=a),
+        ]
+      end
+
+      def sample_lines_2
+        [
+          %Q(foo=1&bar=vv&baz=3&hoge=999),
+          %Q(foo=2&bar=ss&baz=a&xxx=ABC),
         ]
       end
 
