@@ -9,8 +9,8 @@ module Embulk
 
       def guess_lines(config, sample_lines)
         options = {
-          strip_quote: config.param("strip_quote", :boolean, default: true),
-          strip_whitespace: config.param("strip_whitespace", :boolean, default: true)
+          strip_quote: config.param("strip_quote", :bool, default: true),
+          strip_whitespace: config.param("strip_whitespace", :bool, default: true)
         }
         records = sample_lines.map do |line|
           Parser::QueryString.parse(line, options)

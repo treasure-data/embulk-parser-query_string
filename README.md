@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/treasure-data/embulk-parser-query-string.svg)](https://travis-ci.org/treasure-data/embulk-parser-query-string)
+[![Code Climate](https://codeclimate.com/github/treasure-data/embulk-parser-query-string/badges/gpa.svg)](https://codeclimate.com/github/treasure-data/embulk-parser-query-string)
+[![Test Coverage](https://codeclimate.com/github/treasure-data/embulk-parser-query-string/badges/coverage.svg)](https://codeclimate.com/github/treasure-data/embulk-parser-query-string/coverage)
+
 # Query String parser plugin for Embulk
 
 TODO: Write short description here and embulk-parser-query-string.gemspec file.
