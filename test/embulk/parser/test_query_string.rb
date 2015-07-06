@@ -6,17 +6,17 @@ module Embulk
   module Parser
     class QueryStringPluginTest < Test::Unit::TestCase
       class TestParse < self
-        def test_parse_line_without_options
+        def test_without_options
           result = QueryString.parse(line)
           assert_equal(expected, result)
         end
 
-        def test_parse_line_with_strip_quote
+        def test_with_strip_quote
           result = QueryString.parse(quoted_line, strip_quote: true)
           assert_equal(expected, result)
         end
 
-        def test_parse_line_with_strip_whitespace
+        def test_with_strip_whitespace
           result = QueryString.parse(indented_line, strip_whitespace: true)
           assert_equal(expected, result)
         end
