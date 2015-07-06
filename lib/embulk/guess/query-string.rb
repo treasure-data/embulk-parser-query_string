@@ -1,63 +1,37 @@
+require "embulk/parser/query-string"
+
 module Embulk
   module Guess
+    # $ embulk guess -g "query-string" partial-config.yml
 
-    # TODO implement guess plugin to make this command work:
-    #      $ embulk guess -g "query-string" partial-config.yml
-    #
-    #      Depending on the file format the plugin uses, you can use choose
-    #      one of binary guess (GuessPlugin), text guess (TextGuessPlugin),
-    #      or line guess (LineGuessPlugin).
+    class QueryString < LineGuessPlugin
+      Plugin.register_guess("query-string", self)
 
-    #require "embulk/parser/query-string.rb"
-
-    #class QueryString < GuessPlugin
-    #  Plugin.register_guess("query-string", self)
-    #
-    #  def guess(config, sample_buffer)
-    #    if sample_buffer[0,2] == GZIP_HEADER
-    #      guessed = {}
-    #      guessed["type"] = "query-string"
-    #      guessed["property1"] = "guessed-value"
-    #      return {"parser" => guessed}
-    #    else
-    #      return {}
-    #    end
-    #  end
-    #end
-
-    #class QueryString < TextGuessPlugin
-    #  Plugin.register_guess("query-string", self)
-    #
-    #  def guess_text(config, sample_text)
-    #    js = JSON.parse(sample_text) rescue nil
-    #    if js && js["mykeyword"] == "keyword"
-    #      guessed = {}
-    #      guessed["type"] = "query-string"
-    #      guessed["property1"] = "guessed-value"
-    #      return {"parser" => guessed}
-    #    else
-    #      return {}
-    #    end
-    #  end
-    #end
-
-    #class QueryString < LineGuessPlugin
-    #  Plugin.register_guess("query-string", self)
-    #
-    #  def guess_lines(config, sample_lines)
-    #    all_line_matched = sample_lines.all? do |line|
-    #      line =~ /mypattern/
-    #    end
-    #    if all_line_matched
-    #      guessed = {}
-    #      guessed["type"] = "query-string"
-    #      guessed["property1"] = "guessed-value"
-    #      return {"parser" => guessed}
-    #    else
-    #      return {}
-    #    end
-    #  end
-    #end
+      def guess_lines(config, sample_lines)
+        options = {
+          strip_quote: config.param("strip_quote", :boolean, default: true),
+          strip_whitespace: config.param("strip_whitespace", :boolean, default: true)
+        }
+        records = sample_lines.map do |line|
+          Parser::QueryString.parse(line, options)
+        end
+        format = records.inject({}) do |result, record|
+          record.each_pair do |key, value|
+            (result[key] ||= []) << value
+          end
+          result
+        end
+        guessed = {type: "query-string", schema: []}
+        format.each_pair do |key, values|
+          if values.any? {|value| value.match(/[^0-9]/) }
+            guessed[:schema] << {name: key, type: :string}
+          else
+            guessed[:schema] << {name: key, type: :long}
+          end
+        end
+        return {"parser" => guessed}
+      end
+    end
 
   end
 end

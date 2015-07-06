@@ -1,0 +1,5 @@
+in:
+  type: file
+  path_prefix: ./file
+exec: {}
+out: {type: stdout}
