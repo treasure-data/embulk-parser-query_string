@@ -55,9 +55,8 @@ module Embulk
         lines = buffer.lines
         lines.each do |line|
           record = self.class.parse(line, @options)
-          records = []
-          schema.each do |column|
-            records << record[column.name]
+          records = schema.map do |column|
+            record[column.name]
           end
           page_builder.add(records)
         end
