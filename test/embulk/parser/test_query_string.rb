@@ -41,13 +41,11 @@ module Embulk
       end
 
       class TestProcessBuffer < self
-        setup :setup_plugin
-
         def test_process_buffer
           records.each do |record|
             mock(page_builder).add(record.values)
           end
-          @plugin.send(:process_buffer, buffer)
+          plugin.send(:process_buffer, buffer)
         end
 
         private
@@ -74,10 +72,6 @@ module Embulk
       end
 
       private
-
-      def setup_plugin
-        plugin
-      end
 
       def plugin
         @plugin ||= QueryString.new(task, schema, page_builder)
