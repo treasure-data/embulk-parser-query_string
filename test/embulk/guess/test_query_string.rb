@@ -1,5 +1,5 @@
 require "prepare_embulk"
-require "embulk/guess/query-string"
+require "embulk/guess/query_string"
 require "embulk/data_source"
 
 module Embulk
@@ -10,7 +10,7 @@ module Embulk
           actual = QueryString.new.guess_lines(config, sample_lines_1)
           expected = {
             "parser" => {
-              type: "query-string",
+              type: "query_string",
               schema: [
                 {name: "foo", type: :long},
                 {name: "bar", type: :string},
@@ -25,7 +25,7 @@ module Embulk
           actual = QueryString.new.guess_lines(config, sample_lines_2)
           expected = {
             "parser" => {
-              type: "query-string",
+              type: "query_string",
               schema: [
                 {name: "foo", type: :long},
                 {name: "bar", type: :string},

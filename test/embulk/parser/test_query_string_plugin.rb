@@ -1,5 +1,5 @@
 require "prepare_embulk"
-require "embulk/parser/query-string"
+require "embulk/parser/query_string"
 require "embulk/data_source"
 
 module Embulk

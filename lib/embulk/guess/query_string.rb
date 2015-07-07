@@ -1,11 +1,11 @@
-require "embulk/parser/query-string"
+require "embulk/parser/query_string"
 
 module Embulk
   module Guess
-    # $ embulk guess -g "query-string" partial-config.yml
+    # $ embulk guess -g "query_string" partial-config.yml
 
     class QueryString < LineGuessPlugin
-      Plugin.register_guess("query-string", self)
+      Plugin.register_guess("query_string", self)
 
       def guess_lines(config, sample_lines)
         options = {
@@ -21,7 +21,7 @@ module Embulk
           end
           result
         end
-        guessed = {type: "query-string", schema: []}
+        guessed = {type: "query_string", schema: []}
         format.each_pair do |key, values|
           if values.any? {|value| value.match(/[^0-9]/) }
             guessed[:schema] << {name: key, type: :string}
