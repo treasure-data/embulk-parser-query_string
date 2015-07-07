@@ -4,7 +4,7 @@ require "embulk/data_source"
 
 module Embulk
   module Guess
-    class QueryStringPluginTest < Test::Unit::TestCase
+    class QueryStringTest < Test::Unit::TestCase
       class TestGuessLines < self
         def test_guess_1
           actual = QueryString.new.guess_lines(config, sample_lines_1)
