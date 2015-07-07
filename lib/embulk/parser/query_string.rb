@@ -46,7 +46,12 @@ module Embulk
         if options[:strip_quote]
           line = line[/\A(?:["'])?(.*?)(?:["'])?\z/, 1]
         end
-        Hash[URI.decode_www_form(line)]
+
+        begin
+          Hash[URI.decode_www_form(line)]
+        rescue ArgumentError
+          nil
+        end
       end
 
       private

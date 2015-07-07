@@ -21,6 +21,11 @@ module Embulk
           assert_equal(expected, result)
         end
 
+        def test_with_invalid
+          result = QueryString.parse(invalid_line)
+          assert_nil(result)
+        end
+
         private
 
         def expected
@@ -37,6 +42,10 @@ module Embulk
 
         def indented_line
           %Q(  #{line})
+        end
+
+        def invalid_line
+          "invalid=www=form"
         end
       end
 
