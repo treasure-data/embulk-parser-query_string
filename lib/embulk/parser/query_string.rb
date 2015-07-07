@@ -46,7 +46,12 @@ module Embulk
         if options[:strip_quote]
           line = line[/\A(?:["'])?(.*?)(?:["'])?\z/, 1]
         end
-        Hash[URI.decode_www_form(line)]
+
+        begin
+          Hash[URI.decode_www_form(line)]
+        rescue ArgumentError
+          nil
+        end
       end
 
       private
@@ -55,6 +60,9 @@ module Embulk
         lines = buffer.lines
         lines.each do |line|
           record = self.class.parse(line, @options)
+
+          next unless record
+
           records = schema.map do |column|
             record[column.name]
           end
