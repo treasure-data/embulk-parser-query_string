@@ -60,6 +60,9 @@ module Embulk
         lines = buffer.lines
         lines.each do |line|
           record = self.class.parse(line, @options)
+
+          next unless record
+
           records = schema.map do |column|
             record[column.name]
           end

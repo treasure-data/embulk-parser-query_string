@@ -67,7 +67,11 @@ module Embulk
         end
 
         def buffer
-          "foo=FOO&bar=1\nfoo=Foo&bar=2"
+          <<-BUFFER
+foo=FOO&bar=1
+foo=Foo&bar=2
+this=line=is=ignored
+          BUFFER
         end
       end
 
