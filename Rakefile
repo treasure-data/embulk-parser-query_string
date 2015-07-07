@@ -13,7 +13,7 @@ namespace :release do
   task :prepare do
     root_dir = Pathname.new(File.expand_path("../", __FILE__))
     changelog_file = root_dir.join("CHANGELOG.md")
-    gemspec_file = root_dir.join("embulk-parser-query-string.gemspec")
+    gemspec_file = root_dir.join("embulk-parser-query_string.gemspec")
 
     system("git fetch origin")
 
@@ -32,9 +32,9 @@ namespace :release do
 
     # Update ChangeLog
     pr_descriptions = pr_numbers.map do |number|
-      body = open("https://api.github.com/repos/treasure-data/embulk-parser-query-string/issues/#{number.gsub("#", "")}").read
+      body = open("https://api.github.com/repos/treasure-data/embulk-parser-query_string/issues/#{number.gsub("#", "")}").read
       payload = JSON.parse(body)
-      "* [] #{payload["title"]} [#{number}](https://github.com/treasure-data/embulk-parser-query-string/pull/#{number.gsub('#', '')})"
+      "* [] #{payload["title"]} [#{number}](https://github.com/treasure-data/embulk-parser-query_string/pull/#{number.gsub('#', '')})"
     end.join("\n")
 
     new_changelog = <<-HEADER

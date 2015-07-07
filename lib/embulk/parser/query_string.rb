@@ -4,7 +4,7 @@ module Embulk
   module Parser
 
     class QueryString < ParserPlugin
-      Plugin.register_parser("query-string", self)
+      Plugin.register_parser("query_string", self)
 
       def self.transaction(config, &control)
         task = {

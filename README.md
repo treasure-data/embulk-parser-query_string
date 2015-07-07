@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/treasure-data/embulk-parser-query-string.svg)](https://travis-ci.org/treasure-data/embulk-parser-query-string)
-[![Code Climate](https://codeclimate.com/github/treasure-data/embulk-parser-query-string/badges/gpa.svg)](https://codeclimate.com/github/treasure-data/embulk-parser-query-string)
-[![Test Coverage](https://codeclimate.com/github/treasure-data/embulk-parser-query-string/badges/coverage.svg)](https://codeclimate.com/github/treasure-data/embulk-parser-query-string/coverage)
+[![Build Status](https://travis-ci.org/treasure-data/embulk-parser-query_string.svg)](https://travis-ci.org/treasure-data/embulk-parser-query_string)
+[![Code Climate](https://codeclimate.com/github/treasure-data/embulk-parser-query_string/badges/gpa.svg)](https://codeclimate.com/github/treasure-data/embulk-parser-query_string)
+[![Test Coverage](https://codeclimate.com/github/treasure-data/embulk-parser-query_string/badges/coverage.svg)](https://codeclimate.com/github/treasure-data/embulk-parser-query_string/coverage)
 
 # Query String parser plugin for [Embulk](http://www.embulk.org)
 
@@ -45,7 +45,7 @@ out: {type: stdout}
 Run `embulk guess`.
 
 ```
-$ embulk guess -g query-string config.yml -o guessed.yml
+$ embulk guess -g query_string config.yml -o guessed.yml
 ```
 
 You got guessed.yml as below:
@@ -57,7 +57,7 @@ in:
   parser:
     charset: ISO-8859-2
     newline: CRLF
-    type: query-string
+    type: query_string
     schema:
     - {name: user_id, type: long}
     - {name: some_param, type: string}
@@ -76,5 +76,5 @@ You can see the parsed records on STDOUT.
 ## Install plugin
 
 ```
-$ embulk gem install embulk-parser-query-string
+$ embulk gem install embulk-parser-query_string
 ```
