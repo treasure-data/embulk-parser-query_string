@@ -37,6 +37,21 @@ module Embulk
           }
           assert_equal(expected, actual)
         end
+
+        def test_guess_with_invalid
+          actual = QueryString.new.guess_lines(config, sample_lines_with_invalid)
+          expected = {
+            "parser" => {
+              type: "query_string",
+              schema: [
+                {name: "foo", type: :long},
+                {name: "bar", type: :string},
+                {name: "baz", type: :string},
+              ]
+            }
+          }
+          assert_equal(expected, actual)
+        end
       end
 
       private
@@ -52,6 +67,14 @@ module Embulk
         [
           %Q(foo=1&bar=vv&baz=3&hoge=999),
           %Q(foo=2&bar=ss&baz=a&xxx=ABC),
+        ]
+      end
+
+      def sample_lines_with_invalid
+        [
+          %Q(foo=1&bar=vv&baz=3),
+          %Q(this=line=is=invalid),
+          %Q(foo=2&bar=ss&baz=a),
         ]
       end
 

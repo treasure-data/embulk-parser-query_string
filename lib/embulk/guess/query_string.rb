@@ -13,7 +13,7 @@ module Embulk
           strip_whitespace: config.param("strip_whitespace", :bool, default: true)
         }
         records = sample_lines.map do |line|
-          Parser::QueryString.parse(line, options)
+          Parser::QueryString.parse(line, options) || {}
         end
         format = records.inject({}) do |result, record|
           record.each_pair do |key, value|
