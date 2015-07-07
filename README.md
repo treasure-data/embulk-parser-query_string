@@ -19,7 +19,7 @@ Currently, this plugin supports minimum case, some edge cases are unsupported as
 ## Configuration
 
 - **strip_quote**: If you have quoted lines file such as `"foo=FOO&bar=BAR"`, should be true for strip their quotes. (bool, default: true)
-- **strip_whitespace**: Strip whitespace before parsing lines such as `  foo=foo`. (bool, default: true)
+- **strip_whitespace**: Strip whitespace before parsing lines for any indented line parse correctly such as '  foo=FOO'. (bool, default: true)
 
 ## Example
 
