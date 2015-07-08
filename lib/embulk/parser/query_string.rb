@@ -10,13 +10,13 @@ module Embulk
         decoder_task = config.load_config(Java::LineDecoder::DecoderTask)
 
         task = {
-          decoder: DataSource.from_java(decoder_task.dump),
-          strip_quote: config.param("strip_quote", :bool, default: true),
-          strip_whitespace: config.param("strip_whitespace", :bool, default: true),
+          "decoder" => DataSource.from_java(decoder_task.dump),
+          "strip_quote" => config.param("strip_quote", :bool, default: true),
+          "strip_whitespace" => config.param("strip_whitespace", :bool, default: true),
         }
 
         columns = []
-        schema = config.param(:schema, :array, default: [])
+        schema = config.param("schema", :array, default: [])
         schema.each do |column|
           name = column["name"]
           type = column["type"].to_sym
@@ -29,11 +29,11 @@ module Embulk
 
       def init
         @options = {
-          strip_quote: task[:strip_quote],
-          strip_whitespace: task[:strip_whitespace],
+          strip_quote: task["strip_quote"],
+          strip_whitespace: task["strip_whitespace"],
         }
 
-        @decoder = task.param(:decoder, :hash).load_task(Java::LineDecoder::DecoderTask)
+        @decoder = task.param("decoder", :hash).load_task(Java::LineDecoder::DecoderTask)
       end
 
       def run(file_input)

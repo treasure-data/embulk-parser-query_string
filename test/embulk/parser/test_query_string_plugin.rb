@@ -72,10 +72,11 @@ module Embulk
       end
 
       def test_transaction
+        expected_task = task.dup
+        expected_task.delete("schema")
+
         QueryString.transaction(config) do |actual_task, actual_columns|
-          t = task.dup
-          t.delete(:schema)
-          assert_equal(t, actual_task)
+          assert_equal(expected_task, actual_task)
           assert_equal(schema, actual_columns)
         end
       end
@@ -92,10 +93,10 @@ module Embulk
 
       def task
         {
-          decoder: {"Charset" => "UTF-8", "Newline" => "CRLF"},
-          strip_quote: true,
-          strip_whitespace: true,
-          schema: columns,
+          "decoder" => {"Charset" => "UTF-8", "Newline" => "CRLF"},
+          "strip_quote" => true,
+          "strip_whitespace" => true,
+          "schema" => columns,
         }
       end
 
