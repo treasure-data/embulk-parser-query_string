@@ -49,7 +49,7 @@ module Embulk
         end
       end
 
-      class TestProcessBuffer < self
+      class TestProcessLine < self
         def test_process_line
           mock(page_builder).add(["FOO", 1, Time.parse("2015-07-08T16:25:46")])
           plugin.send(:process_line, line)
