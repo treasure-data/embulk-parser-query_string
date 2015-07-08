@@ -31,7 +31,7 @@ You have such text file (`target_file.txt`) as below:
 "user_id=44&some_param=XYZ"
 ```
 
-And you have `config.yml` as below:
+And you have `partial-config.yml` as below:
 
 ```yaml
 in:
@@ -47,7 +47,7 @@ out: {type: stdout}
 Run `embulk guess`.
 
 ```
-$ embulk guess -g query_string config.yml -o guessed.yml
+$ embulk guess -g query_string partial-config.yml -o guessed.yml
 ```
 
 You got guessed.yml as below:
