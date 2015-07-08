@@ -15,7 +15,7 @@ module Embulk
           }
         end
 
-        def test_guess(data)
+        def test_schema(data)
           sample_lines, schema = data
           actual = QueryString.new.guess_lines(config, sample_lines)
           expected = {
@@ -24,6 +24,29 @@ module Embulk
               schema: schema
             }
           }
+          assert_equal(expected, actual)
+        end
+
+        data do
+          valid_schema = {
+            "parser" => {
+              type: "query_string",
+              schema: schema_with_same_keys,
+            }
+          }
+
+          {
+            "query_string" => ["query_string", valid_schema],
+            "other" => ["other", {}],
+          }
+        end
+
+        def test_type(data)
+          type, expected = data
+          sample_lines = self.class.sample_lines_with_same_keys
+          config = DataSource[{parser: {type: type}}]
+
+          actual = QueryString.new.guess_lines(config, sample_lines)
           assert_equal(expected, actual)
         end
       end

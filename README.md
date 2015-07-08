@@ -31,13 +31,15 @@ You have such text file (`target_file.txt`) as below:
 "user_id=44&some_param=XYZ"
 ```
 
-And you have `config.yml` as below:
+And you have `partial-config.yml` as below:
 
 ```yaml
 in:
   type: file
   path_prefix: ./target_file
-  strip_quote: true
+  parser:
+    strip_quote: true
+    strip_whitespace: true
 exec: {}
 out: {type: stdout}
 ```
@@ -45,7 +47,7 @@ out: {type: stdout}
 Run `embulk guess`.
 
 ```
-$ embulk guess -g query_string config.yml -o guessed.yml
+$ embulk guess -g query_string partial-config.yml -o guessed.yml
 ```
 
 You got guessed.yml as below:
@@ -55,6 +57,8 @@ in:
   type: file
   path_prefix: ./target_file
   parser:
+    strip_quote: true
+    strip_whitespace: true
     charset: ISO-8859-2
     newline: CRLF
     type: query_string
