@@ -8,6 +8,8 @@ module Embulk
       Plugin.register_guess("query_string", self)
 
       def guess_lines(config, sample_lines)
+        return {} unless config.fetch("parser", {}).fetch("type", "query_string") == "query_string"
+
         options = {
           strip_quote: config.param("strip_quote", :bool, default: true),
           strip_whitespace: config.param("strip_whitespace", :bool, default: true)
