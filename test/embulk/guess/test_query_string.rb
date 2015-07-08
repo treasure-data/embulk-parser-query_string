@@ -44,7 +44,7 @@ module Embulk
         def test_type(data)
           type, expected = data
           sample_lines = self.class.sample_lines_with_same_keys
-          config = DataSource[{parser: {type: type}}]
+          config = DataSource[{"parser" => {"type" => type}}]
 
           actual = QueryString.new.guess_lines(config, sample_lines)
           assert_equal(expected, actual)

@@ -51,31 +51,23 @@ module Embulk
 
       class TestProcessBuffer < self
         def test_process_line
-          records.each do |record|
-            mock(page_builder).add(record.values)
-          end
-
+          mock(page_builder).add(["FOO", 1, Time.parse("2015-07-08T16:25:46+00:00")])
           plugin.send(:process_line, line)
         end
 
         private
 
-        def records
-          [
-            {"foo" => "FOO", "bar" => "1"},
-          ]
-        end
-
         def line
-          "foo=FOO&bar=1"
+          "foo=FOO&bar=1&baz=2015-07-08T16:25:46+00:00"
         end
       end
 
       def test_transaction
+        expected_task = task.dup
+        expected_task.delete("schema")
+
         QueryString.transaction(config) do |actual_task, actual_columns|
-          t = task.dup
-          t.delete(:schema)
-          assert_equal(t, actual_task)
+          assert_equal(expected_task, actual_task)
           assert_equal(schema, actual_columns)
         end
       end
@@ -92,17 +84,18 @@ module Embulk
 
       def task
         {
-          decoder: {"Charset" => "UTF-8", "Newline" => "CRLF"},
-          strip_quote: true,
-          strip_whitespace: true,
-          schema: columns,
+          "decoder" => {"Charset" => "UTF-8", "Newline" => "CRLF"},
+          "strip_quote" => true,
+          "strip_whitespace" => true,
+          "schema" => columns,
         }
       end
 
       def columns
         [
-          {"name" => "foo", "type" => "string"},
-          {"name" => "bar", "type" => "string"},
+          {"name" => "foo", "type" => :string},
+          {"name" => "bar", "type" => :long},
+          {"name" => "baz", "type" => :timestamp},
         ]
       end
 

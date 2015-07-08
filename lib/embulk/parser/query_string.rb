@@ -10,13 +10,13 @@ module Embulk
         decoder_task = config.load_config(Java::LineDecoder::DecoderTask)
 
         task = {
-          decoder: DataSource.from_java(decoder_task.dump),
-          strip_quote: config.param("strip_quote", :bool, default: true),
-          strip_whitespace: config.param("strip_whitespace", :bool, default: true),
+          "decoder" => DataSource.from_java(decoder_task.dump),
+          "strip_quote" => config.param("strip_quote", :bool, default: true),
+          "strip_whitespace" => config.param("strip_whitespace", :bool, default: true),
         }
 
         columns = []
-        schema = config.param(:schema, :array, default: [])
+        schema = config.param("schema", :array, default: [])
         schema.each do |column|
           name = column["name"]
           type = column["type"].to_sym
@@ -29,11 +29,11 @@ module Embulk
 
       def init
         @options = {
-          strip_quote: task[:strip_quote],
-          strip_whitespace: task[:strip_whitespace],
+          strip_quote: task["strip_quote"],
+          strip_whitespace: task["strip_whitespace"],
         }
 
-        @decoder = task.param(:decoder, :hash).load_task(Java::LineDecoder::DecoderTask)
+        @decoder = task.param("decoder", :hash).load_task(Java::LineDecoder::DecoderTask)
       end
 
       def run(file_input)
@@ -69,10 +69,22 @@ module Embulk
 
         return unless record
 
-        records = schema.map do |column|
-          record[column.name]
+        # NOTE: this conversion is needless afrer Embulk 0.6.13
+        values = schema.map do |column|
+          name = column.name
+          value = record[name]
+
+          case column.type
+          when :long
+            Integer(value)
+          when :timestamp
+            Time.parse(value)
+          else
+            value.to_s
+          end
         end
-        page_builder.add(records)
+
+        page_builder.add(values)
       end
     end
   end
