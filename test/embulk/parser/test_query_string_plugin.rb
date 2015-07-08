@@ -50,11 +50,12 @@ module Embulk
       end
 
       class TestProcessBuffer < self
-        def test_process_buffer
+        def test_process_line
           records.each do |record|
             mock(page_builder).add(record.values)
           end
-          plugin.send(:process_buffer, buffer)
+
+          plugin.send(:process_line, line)
         end
 
         private
@@ -62,16 +63,11 @@ module Embulk
         def records
           [
             {"foo" => "FOO", "bar" => "1"},
-            {"foo" => "Foo", "bar" => "2"},
           ]
         end
 
-        def buffer
-          <<-BUFFER
-foo=FOO&bar=1
-foo=Foo&bar=2
-this=line=is=ignored
-          BUFFER
+        def line
+          "foo=FOO&bar=1"
         end
       end
 
@@ -87,7 +83,7 @@ this=line=is=ignored
       private
 
       def plugin
-        @plugin ||= QueryString.new(task, schema, page_builder)
+        @plugin ||= QueryString.new(DataSource[task], schema, page_builder)
       end
 
       def page_builder
@@ -96,6 +92,7 @@ this=line=is=ignored
 
       def task
         {
+          decoder: {"Charset" => "UTF-8", "Newline" => "CRLF"},
           strip_quote: true,
           strip_whitespace: true,
           schema: columns,
