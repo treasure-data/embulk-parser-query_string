@@ -7,7 +7,10 @@ module Embulk
       Plugin.register_parser("query_string", self)
 
       def self.transaction(config, &control)
+        decoder_task = config.load_config(Java::LineDecoder::DecoderTask)
+
         task = {
+          decoder: DataSource.from_java(decoder_task.dump),
           strip_quote: config.param("strip_quote", :bool, default: true),
           strip_whitespace: config.param("strip_whitespace", :bool, default: true),
         }
@@ -29,14 +32,19 @@ module Embulk
           strip_quote: task[:strip_quote],
           strip_whitespace: task[:strip_whitespace],
         }
+
+        @decoder = task.param(:decoder, :hash).load_task(Java::LineDecoder::DecoderTask)
       end
 
       def run(file_input)
-        while file = file_input.next_file
-          file.each do |buffer|
-            process_buffer(buffer)
+        decoder = Java::LineDecoder.new(file_input.instance_variable_get(:@java_file_input), @decoder)
+
+        while decoder.nextFile
+          while line = decoder.poll
+            process_line(line)
           end
         end
+
         page_builder.finish
       end
 
@@ -56,20 +64,16 @@ module Embulk
 
       private
 
-      def process_buffer(buffer)
-        lines = buffer.lines
-        lines.each do |line|
-          record = self.class.parse(line, @options)
+      def process_line(line)
+        record = self.class.parse(line, @options)
 
-          next unless record
+        return unless record
 
-          records = schema.map do |column|
-            record[column.name]
-          end
-          page_builder.add(records)
+        records = schema.map do |column|
+          record[column.name]
         end
+        page_builder.add(records)
       end
     end
-
   end
 end
