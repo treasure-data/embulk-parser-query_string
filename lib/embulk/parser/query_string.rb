@@ -70,7 +70,7 @@ module Embulk
         return unless record
 
         # NOTE: this conversion is needless afrer Embulk 0.6.13
-        records = schema.map do |column|
+        values = schema.map do |column|
           name = column.name
           value = record[name]
 
@@ -83,7 +83,8 @@ module Embulk
             value.to_s
           end
         end
-        page_builder.add(records)
+
+        page_builder.add(values)
       end
     end
   end
