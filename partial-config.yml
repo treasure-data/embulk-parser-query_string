@@ -1,5 +1,8 @@
 in:
   type: file
-  path_prefix: ./file
+  path_prefix: ./target_file
+  parser:
+    strip_quote: true
+    strip_whitespace: true
 exec: {}
 out: {type: stdout}

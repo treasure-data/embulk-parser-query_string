@@ -37,7 +37,9 @@ And you have `config.yml` as below:
 in:
   type: file
   path_prefix: ./target_file
-  strip_quote: true
+  parser:
+    strip_quote: true
+    strip_whitespace: true
 exec: {}
 out: {type: stdout}
 ```
@@ -55,6 +57,8 @@ in:
   type: file
   path_prefix: ./target_file
   parser:
+    strip_quote: true
+    strip_whitespace: true
     charset: ISO-8859-2
     newline: CRLF
     type: query_string
