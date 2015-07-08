@@ -51,20 +51,12 @@ module Embulk
 
       class TestProcessBuffer < self
         def test_process_line
-          records.each do |record|
-            mock(page_builder).add(record.values)
-          end
+          mock(page_builder).add(["FOO", 1])
 
           plugin.send(:process_line, line)
         end
 
         private
-
-        def records
-          [
-            {"foo" => "FOO", "bar" => "1"},
-          ]
-        end
 
         def line
           "foo=FOO&bar=1"
@@ -102,8 +94,8 @@ module Embulk
 
       def columns
         [
-          {"name" => "foo", "type" => "string"},
-          {"name" => "bar", "type" => "string"},
+          {"name" => "foo", "type" => :string},
+          {"name" => "bar", "type" => :long},
         ]
       end
 

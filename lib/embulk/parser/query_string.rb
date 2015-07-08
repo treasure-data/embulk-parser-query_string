@@ -69,8 +69,17 @@ module Embulk
 
         return unless record
 
+        # NOTE: this conversion is needless afrer Embulk 0.6.13
         records = schema.map do |column|
-          record[column.name]
+          name = column.name
+          value = record[name]
+
+          case column.type
+          when :long
+            Integer(value)
+          else
+            value.to_s
+          end
         end
         page_builder.add(records)
       end
