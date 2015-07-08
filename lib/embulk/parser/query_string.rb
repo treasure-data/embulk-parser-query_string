@@ -77,6 +77,8 @@ module Embulk
           case column.type
           when :long
             Integer(value)
+          when :timestamp
+            Time.parse(value)
           else
             value.to_s
           end
