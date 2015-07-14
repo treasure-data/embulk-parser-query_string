@@ -101,9 +101,11 @@ module Embulk
 
       def task
         {
-          strip_quote: true,
-          strip_whitespace: true,
-          schema: columns,
+          parser: {
+            strip_quote: true,
+            strip_whitespace: true,
+            schema: columns,
+          }
         }
       end
 

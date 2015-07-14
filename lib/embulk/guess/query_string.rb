@@ -10,9 +10,11 @@ module Embulk
       def guess_lines(config, sample_lines)
         return {} unless config.fetch("parser", {}).fetch("type", "query_string") == "query_string"
 
+        parser_config = config.param("parser", :hash)
         options = {
-          strip_quote: config.param("strip_quote", :bool, default: true),
-          strip_whitespace: config.param("strip_whitespace", :bool, default: true)
+          strip_quote: parser_config.param("strip_quote", :bool, default: true),
+          strip_whitespace: parser_config.param("strip_whitespace", :bool, default: true),
+          capture: parser_config.param("capture", :string, default: nil)
         }
         records = sample_lines.map do |line|
           Parser::QueryString.parse(line, options) || {}

@@ -49,6 +49,10 @@ module Embulk
       end
 
       def self.parse(line, options = {})
+        if options[:capture]
+          line = line.match(options[:capture]).to_a[1]
+          # TODO: detect incorrect regexp given
+        end
         line.chomp!
         line.strip! if options[:strip_whitespace]
         if options[:strip_quote]
