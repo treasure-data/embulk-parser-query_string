@@ -1,6 +1,3 @@
-# -- coding: utf-8
-
-
 module CaptureIo
   def capture(output = :out, &block)
     _, out = swap_io(output, &block)

@@ -4,7 +4,7 @@ require "prepare_embulk"
 require "embulk_run_helper"
 
 module Embulk
-  class GuessTest < Test::Unit::TestCase
+  class EmbulkRunTest < Test::Unit::TestCase
     include EmbulkRunHelper
 
     def setup
@@ -36,26 +36,12 @@ module Embulk
     def test_embulk_run
       config_path = "#{@dir}/config.yml"
       File.open(config_path, "w") do |f|
-        f.write <<-YAML
-in:
-  type: file
-  path_prefix: #{@dir}/target_file
-  parser:
-    strip_quote: true
-    strip_whitespace: true
-    charset: UTF-8
-    newline: CRLF
-    type: query_string
-    schema:
-    - {name: foo, type: string}
-    - {name: bar, type: long}
-exec: {}
-out: {type: stdout}
-        YAML
+        f.write guessed_content
       end
       out = capture do
         embulk_run(config_path)
       end
+
       assert_true(out.include?(<<-CONTENT))
 FOO,1
 FOO,2
@@ -76,7 +62,19 @@ FOO,13
     def test_embulk_guess
       seed_path = "#{@dir}/seed.yml"
       File.open(seed_path, "w") do |f|
-        f.write <<-YAML
+        f.write seed_content
+      end
+      dest_path = "#{@dir}/guessed.yml"
+      embulk_guess(seed_path, dest_path)
+      guessed = IO.read(dest_path)
+
+      assert_equal(guessed_content, guessed)
+    end
+
+    private
+
+    def seed_content
+      <<YAML
 in:
   type: file
   path_prefix: #{@dir}/target_file
@@ -85,14 +83,11 @@ in:
     strip_whitespace: true
 exec: {}
 out: {type: stdout}
-        YAML
-      end
+YAML
+    end
 
-      dest_path = "#{@dir}/guessed.yml"
-
-      embulk_guess(seed_path, dest_path)
-      guessed = IO.read(dest_path)
-      assert_equal(<<-YAML, guessed)
+    def guessed_content
+      <<YAML
 in:
   type: file
   path_prefix: #{@dir}/target_file
@@ -107,7 +102,7 @@ in:
     - {name: bar, type: long}
 exec: {}
 out: {type: stdout}
-      YAML
+YAML
     end
   end
 end
