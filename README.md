@@ -22,6 +22,7 @@ Required Embulk version >= 0.6.10.
 
 - **strip_quote**: If you have quoted lines file such as `"foo=FOO&bar=BAR"`, should be true for strip their quotes. (bool, default: true)
 - **strip_whitespace**: Strip whitespace before parsing lines for any indented line parse correctly such as '  foo=FOO'. (bool, default: true)
+- **capture**: Capture valuable text from each line using Regexp. Matched first pattern (a.k.a `$1`) will be used. See also [partial-config.yml](./partial-config.yml) (string, default: nil)
 
 ## Example
 

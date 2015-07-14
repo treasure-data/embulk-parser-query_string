@@ -4,6 +4,6 @@ in:
   parser:
     strip_quote: true
     strip_whitespace: true
-    capture: 'www01: (".*?")' # to capture query string from such line -> www01: "uid=123&s=foo"
+    capture: 'www01: (".*?")' # sample regexp to capture query string from such line -> www01: "uid=123&s=foo"
 exec: {}
 out: {type: stdout}
