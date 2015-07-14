@@ -36,6 +36,16 @@ module Embulk
           assert_nil(result)
         end
 
+        def test_empty_line
+          result = QueryString.parse("")
+          assert_nil(result)
+        end
+
+        def test_empty_matched
+          result = QueryString.parse("foo=bar", capture: /foo/) # $1 is undefined, so treated as empty string
+          assert_nil(result)
+        end
+
         private
 
         def expected
