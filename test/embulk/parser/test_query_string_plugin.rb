@@ -101,6 +101,7 @@ module Embulk
           "decoder" => {"Charset" => "UTF-8", "Newline" => "CRLF"},
           "strip_quote" => true,
           "strip_whitespace" => true,
+          "capture" => "(.*)",
           "schema" => columns,
         }
       end

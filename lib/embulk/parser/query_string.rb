@@ -13,6 +13,7 @@ module Embulk
           "decoder" => DataSource.from_java(decoder_task.dump),
           "strip_quote" => config.param("strip_quote", :bool, default: true),
           "strip_whitespace" => config.param("strip_whitespace", :bool, default: true),
+          "capture" => config.param("capture", :string, default: nil),
         }
 
         columns = []
@@ -31,6 +32,7 @@ module Embulk
         @options = {
           strip_quote: task["strip_quote"],
           strip_whitespace: task["strip_whitespace"],
+          capture: task["capture"],
         }
 
         @decoder = task.param("decoder", :hash).load_task(Java::LineDecoder::DecoderTask)
