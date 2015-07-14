@@ -1,3 +1,6 @@
+## 0.1.1 - 2015-07-14
+* [fixed] Add missing support capture option to parser [#13](https://github.com/treasure-data/embulk-parser-query_string/pull/13)
+
 ## 0.1.0 - 2015-07-14
 * [enhancement] Add capture option [#11](https://github.com/treasure-data/embulk-parser-query_string/pull/11)
 
