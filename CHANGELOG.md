@@ -1,3 +1,6 @@
+## 0.1.2 - 2015-07-14
+* [fixed] Fix to ignore empty line same as invalid line [#14](https://github.com/treasure-data/embulk-parser-query_string/pull/14)
+
 ## 0.1.1 - 2015-07-14
 * [fixed] Add missing support capture option to parser [#13](https://github.com/treasure-data/embulk-parser-query_string/pull/13)
 
