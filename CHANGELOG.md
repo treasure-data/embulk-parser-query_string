@@ -1,3 +1,6 @@
+## 0.1.0 - 2015-07-14
+* [enhancement] Add capture option [#11](https://github.com/treasure-data/embulk-parser-query_string/pull/11)
+
 ## 0.0.3 - 2015-07-08
 
 * [enhancement] Support embulk 0.6.10 (backward compatibility) [#9](https://github.com/treasure-data/embulk-parser-query_string/pull/9)
