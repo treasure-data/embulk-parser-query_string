@@ -21,6 +21,16 @@ module Embulk
           assert_equal(expected, result)
         end
 
+        def test_with_capture
+          result = QueryString.parse(indented_line, capture: /^ *(.*)$/)
+          assert_equal(expected, result)
+        end
+
+        def test_with_capture_and_quote
+          result = QueryString.parse(complex_line, strip_quote: true, capture: /^[^"]*(".*?")$/)
+          assert_equal(expected, result)
+        end
+
         def test_with_invalid
           result = QueryString.parse(invalid_line)
           assert_nil(result)
@@ -42,6 +52,10 @@ module Embulk
 
         def indented_line
           %Q(  #{line})
+        end
+
+        def complex_line
+          %Q(Jul 11 11:22:33 ec2-instance-001 : "#{line}")
         end
 
         def invalid_line
