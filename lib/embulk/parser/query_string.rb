@@ -88,7 +88,7 @@ module Embulk
           when :long
             value.strip.empty? ? nil : Integer(value)
           when :timestamp
-            Time.parse(value)
+            value.strip.empty? ? nil : Time.parse(value)
           else
             value.to_s
           end
