@@ -86,7 +86,7 @@ module Embulk
 
           case column.type
           when :long
-            Integer(value)
+            value.strip.empty? ? nil : Integer(value)
           when :timestamp
             Time.parse(value)
           else
