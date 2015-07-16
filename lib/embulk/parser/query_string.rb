@@ -82,11 +82,13 @@ module Embulk
           name = column.name
           value = record[name]
 
+          next nil unless value
+
           case column.type
           when :long
-            Integer(value)
+            value.strip.empty? ? nil : Integer(value)
           when :timestamp
-            Time.parse(value)
+            value.strip.empty? ? nil : Time.parse(value)
           else
             value.to_s
           end

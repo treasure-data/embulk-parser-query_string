@@ -74,15 +74,33 @@ module Embulk
       end
 
       class TestProcessLine < self
-        def test_process_line
+        def test_all_keys_exist_in_schema
           mock(page_builder).add(["FOO", 1, Time.parse("2015-07-08T16:25:46")])
           plugin.send(:process_line, line)
+        end
+
+        def test_key_nonexist_in_schema
+          nonexist_column = Column.new(nil, "different", :long)
+          nonexist_schema = schema << nonexist_column
+
+          plugin = QueryString.new(DataSource[task], nonexist_schema, page_builder)
+          mock(page_builder).add(["FOO", 1, Time.parse("2015-07-08T16:25:46"), nil])
+          plugin.send(:process_line, line)
+        end
+
+        def test_long_value_for_key_nonexist
+          mock(page_builder).add(["FOO", nil, Time.parse("2015-07-08T16:25:46")])
+          plugin.send(:process_line, value_nonexist_line)
         end
 
         private
 
         def line
           "foo=FOO&bar=1&baz=2015-07-08T16:25:46"
+        end
+
+        def value_nonexist_line
+          "foo=FOO&bar=&baz=2015-07-08T16:25:46"
         end
       end
 
