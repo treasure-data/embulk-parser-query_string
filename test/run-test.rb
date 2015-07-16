@@ -15,4 +15,4 @@ ENV["TEST_UNIT_MAX_DIFF_TARGET_STRING_SIZE"] ||= "5000"
 
 CodeClimate::TestReporter.start
 
-exit Test::Unit::AutoRunner.run(true, test_dir)
+exit Test::Unit::AutoRunner.run(true, test_dir, ARGV + %w(--collector=dir))

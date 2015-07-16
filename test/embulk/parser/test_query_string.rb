@@ -4,7 +4,7 @@ require "embulk/data_source"
 
 module Embulk
   module Parser
-    class QueryStringPluginTest < Test::Unit::TestCase
+    class QueryStringTest < Test::Unit::TestCase
       class TestParse < self
         def test_without_options
           result = QueryString.parse(line)
