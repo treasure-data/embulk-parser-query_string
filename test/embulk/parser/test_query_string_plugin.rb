@@ -79,6 +79,15 @@ module Embulk
           plugin.send(:process_line, line)
         end
 
+        def test_process_line_without_column
+          defferent_column = Column.new(nil, "different", :long)
+          defferent_schema = schema << defferent_column
+
+          plugin = QueryString.new(DataSource[task], defferent_schema, page_builder)
+          mock(page_builder).add(["FOO", 1, Time.parse("2015-07-08T16:25:46"), nil])
+          plugin.send(:process_line, line)
+        end
+
         private
 
         def line

@@ -82,6 +82,8 @@ module Embulk
           name = column.name
           value = record[name]
 
+          next nil unless value
+
           case column.type
           when :long
             Integer(value)
