@@ -1,3 +1,7 @@
+## 0.1.3 - 2015-07-16
+* [enhancement] Fix bug nil value casting unexpectedly [#16](https://github.com/treasure-data/embulk-parser-query_string/pull/16)
+* [maintenance] Improve test [#15](https://github.com/treasure-data/embulk-parser-query_string/pull/15)
+
 ## 0.1.2 - 2015-07-14
 * [fixed] Fix to ignore empty line same as invalid line [#14](https://github.com/treasure-data/embulk-parser-query_string/pull/14)
 
