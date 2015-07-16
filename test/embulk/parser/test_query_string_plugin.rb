@@ -88,7 +88,7 @@ module Embulk
           plugin.send(:process_line, line)
         end
 
-        def test_value_for_key_nonexist
+        def test_long_value_for_key_nonexist
           mock(page_builder).add(["FOO", nil, Time.parse("2015-07-08T16:25:46+09:00")])
           plugin.send(:process_line, value_nonexist_line)
         end
