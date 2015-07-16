@@ -80,10 +80,10 @@ module Embulk
         end
 
         def test_key_nonexist_in_schema
-          defferent_column = Column.new(nil, "different", :long)
-          defferent_schema = schema << defferent_column
+          nonexist_column = Column.new(nil, "different", :long)
+          nonexist_schema = schema << nonexist_column
 
-          plugin = QueryString.new(DataSource[task], defferent_schema, page_builder)
+          plugin = QueryString.new(DataSource[task], nonexist_schema, page_builder)
           mock(page_builder).add(["FOO", 1, Time.parse("2015-07-08T16:25:46"), nil])
           plugin.send(:process_line, line)
         end
