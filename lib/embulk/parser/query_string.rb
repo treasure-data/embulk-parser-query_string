@@ -84,13 +84,18 @@ module Embulk
 
           next nil unless value
 
-          case column.type
-          when :long
-            value.strip.empty? ? nil : Integer(value)
-          when :timestamp
-            value.strip.empty? ? nil : Time.parse(value)
-          else
-            value.to_s
+          begin
+            case column.type
+            when :long
+              value.strip.empty? ? nil : Integer(value)
+            when :timestamp
+              value.strip.empty? ? nil : Time.parse(value)
+            else
+              value.to_s
+            end
+          rescue => e
+            Embulk.logger.error "Cast failed '#{value}' as '#{column.type}' (key is '#{column.name}')"
+            raise e
           end
         end
 
