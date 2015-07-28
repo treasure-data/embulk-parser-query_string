@@ -13,7 +13,7 @@ Currently, this plugin supports minimum case, some edge cases are unsupported as
 
 ## Overview
 
-Required Embulk version >= 0.6.10.
+Required Embulk version >= 0.6.17.
 
 * **Plugin type**: parser
 * **Guess supported**: yes
