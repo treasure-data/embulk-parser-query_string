@@ -25,12 +25,12 @@ module Embulk
           end
           result
         end
-        guessed = {type: "query_string", schema: []}
+        guessed = {type: "query_string", columns: []}
         format.each_pair do |key, values|
           if values.any? {|value| value.match(/[^0-9]/) }
-            guessed[:schema] << {name: key, type: :string}
+            guessed[:columns] << {name: key, type: :string}
           else
-            guessed[:schema] << {name: key, type: :long}
+            guessed[:columns] << {name: key, type: :long}
           end
         end
         return {"parser" => guessed}

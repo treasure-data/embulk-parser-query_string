@@ -17,7 +17,7 @@ module Embulk
         }
 
         columns = []
-        schema = config.param("schema", :array, default: [])
+        schema = config.param("columns", :array, default: [])
         schema.each do |column|
           name = column["name"]
           type = column["type"].to_sym

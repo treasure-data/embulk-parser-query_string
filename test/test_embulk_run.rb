@@ -97,7 +97,7 @@ in:
     charset: UTF-8
     newline: CRLF
     type: query_string
-    schema:
+    columns:
     - {name: foo, type: string}
     - {name: bar, type: long}
 exec: {}

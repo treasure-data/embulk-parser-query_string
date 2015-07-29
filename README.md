@@ -65,7 +65,7 @@ in:
     charset: ISO-8859-2
     newline: CRLF
     type: query_string
-    schema:
+    columns:
     - {name: user_id, type: long}
     - {name: some_param, type: string}
 exec: {}
