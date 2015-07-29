@@ -1,3 +1,11 @@
+## 0.2.0 - 2015-07-29
+
+This version breaks backword compatibility. With this version, if you use config created by embulk-parser-query_string 0.1.3 or earlier, you shoud replace `schema:` key name with `columns:` in your config file (e.g. `config.yml`) .
+
+* [fixed] Use "column" as key for schema in config file [#22](https://github.com/treasure-data/embulk-parser-query_string/pull/22) [[reported by @muga](https://github.com/treasure-data/embulk-parser-query_string/issues/21). Thanks!!]
+* [enhancement] Display cast error log to human [#19](https://github.com/treasure-data/embulk-parser-query_string/pull/19)
+* [maintenace] Fix same name tests weren't run [#18](https://github.com/treasure-data/embulk-parser-query_string/pull/18)
+
 ## 0.1.3 - 2015-07-16
 * [enhancement] Fix bug nil value casting unexpectedly [#16](https://github.com/treasure-data/embulk-parser-query_string/pull/16)
 * [maintenance] Improve test [#15](https://github.com/treasure-data/embulk-parser-query_string/pull/15)
