@@ -106,7 +106,7 @@ module Embulk
 
       def test_transaction
         expected_task = task.dup
-        expected_task.delete("schema")
+        expected_task.delete("columns")
 
         QueryString.transaction(config) do |actual_task, actual_columns|
           assert_equal(expected_task, actual_task)
@@ -130,7 +130,7 @@ module Embulk
           "strip_quote" => true,
           "strip_whitespace" => true,
           "capture" => "(.*)",
-          "schema" => columns,
+          "columns" => columns,
         }
       end
 

@@ -8,35 +8,35 @@ module Embulk
       class TestGuessLines < self
         data do
           {
-            same_keys: [sample_lines_with_same_keys, schema_with_same_keys],
-            different_keys: [sample_lines_with_different_keys, schema_with_different_keys],
-            invalid: [sample_lines_with_invalid, schema_with_invalid],
+            same_keys: [sample_lines_with_same_keys, columns_with_same_keys],
+            different_keys: [sample_lines_with_different_keys, columns_with_different_keys],
+            invalid: [sample_lines_with_invalid, columns_with_invalid],
 
           }
         end
 
-        def test_schema(data)
-          sample_lines, schema = data
+        def test_columns(data)
+          sample_lines, columns = data
           actual = QueryString.new.guess_lines(config, sample_lines)
           expected = {
             "parser" => {
               type: "query_string",
-              schema: schema
+              columns: columns
             }
           }
           assert_equal(expected, actual)
         end
 
         data do
-          valid_schema = {
+          valid_columns = {
             "parser" => {
               type: "query_string",
-              schema: schema_with_same_keys,
+              columns: columns_with_same_keys,
             }
           }
 
           {
-            "query_string" => ["query_string", valid_schema],
+            "query_string" => ["query_string", valid_columns],
             "other" => ["other", {}],
           }
         end
@@ -61,7 +61,7 @@ module Embulk
           ]
         end
 
-        def schema_with_same_keys
+        def columns_with_same_keys
           [
             {name: "foo", type: :long},
             {name: "bar", type: :string},
@@ -76,7 +76,7 @@ module Embulk
           ]
         end
 
-        def schema_with_different_keys
+        def columns_with_different_keys
           [
             {name: "foo", type: :long},
             {name: "bar", type: :string},
@@ -94,8 +94,8 @@ module Embulk
           ]
         end
 
-        def schema_with_invalid
-          schema_with_same_keys
+        def columns_with_invalid
+          columns_with_same_keys
         end
       end
 
@@ -104,7 +104,7 @@ module Embulk
           "parser" => {
             "strip_quote" => true,
             "strip_whitespace" => true,
-            "schema" => columns,
+            "columns" => columns,
           }
         }
       end
