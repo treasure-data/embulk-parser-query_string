@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/treasure-data/embulk-parser-query_string.svg)](https://travis-ci.org/treasure-data/embulk-parser-query_string)
+[![Build Status](https://travis-ci.org/treasure-data/embulk-parser-query_string.svg?branch=master)](https://travis-ci.org/treasure-data/embulk-parser-query_string)
 [![Code Climate](https://codeclimate.com/github/treasure-data/embulk-parser-query_string/badges/gpa.svg)](https://codeclimate.com/github/treasure-data/embulk-parser-query_string)
 [![Test Coverage](https://codeclimate.com/github/treasure-data/embulk-parser-query_string/badges/coverage.svg)](https://codeclimate.com/github/treasure-data/embulk-parser-query_string/coverage)
 
@@ -13,7 +13,7 @@ Currently, this plugin supports minimum case, some edge cases are unsupported as
 
 ## Overview
 
-Required Embulk version >= 0.6.10.
+Required Embulk version >= 0.6.17.
 
 * **Plugin type**: parser
 * **Guess supported**: yes

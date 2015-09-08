@@ -39,7 +39,7 @@ module Embulk
       end
 
       def run(file_input)
-        decoder = Java::LineDecoder.new(file_input.instance_variable_get(:@java_file_input), @decoder)
+        decoder = Java::LineDecoder.new(file_input.to_java, @decoder)
 
         while decoder.nextFile
           while line = decoder.poll
