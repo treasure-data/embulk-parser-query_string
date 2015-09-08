@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/treasure-data/embulk-parser-query_string.svg)](https://travis-ci.org/treasure-data/embulk-parser-query_string)
+[![Build Status](https://travis-ci.org/treasure-data/embulk-parser-query_string.svg?branch=master)](https://travis-ci.org/treasure-data/embulk-parser-query_string)
 [![Code Climate](https://codeclimate.com/github/treasure-data/embulk-parser-query_string/badges/gpa.svg)](https://codeclimate.com/github/treasure-data/embulk-parser-query_string)
 [![Test Coverage](https://codeclimate.com/github/treasure-data/embulk-parser-query_string/badges/coverage.svg)](https://codeclimate.com/github/treasure-data/embulk-parser-query_string/coverage)
 
