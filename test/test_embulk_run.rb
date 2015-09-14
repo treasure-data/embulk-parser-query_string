@@ -65,6 +65,9 @@ FOO,13
         f.write seed_content
       end
       dest_path = "#{@dir}/guessed.yml"
+
+      stub(STDERR).puts { guessed_content } # Embulk outputs guessed config to STDERR
+
       embulk_guess(seed_path, dest_path)
       guessed = IO.read(dest_path)
 
