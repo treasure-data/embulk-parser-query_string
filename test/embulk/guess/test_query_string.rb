@@ -89,7 +89,7 @@ module Embulk
         def sample_lines_with_invalid
           [
             %Q(foo=1&bar=vv&baz=3),
-            %Q(this=line=is=invalid),
+            %Q(あいうえお=is=invalid),
             %Q(foo=2&bar=ss&baz=a),
           ]
         end
