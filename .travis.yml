@@ -12,19 +12,12 @@ jdk:
 - oraclejdk8
 
 gemfile:
-  - gemfiles/embulk-0.6.17
-  - gemfiles/embulk-0.6.18
-  - gemfiles/embulk-0.6.19
-  - gemfiles/embulk-0.6.20
-  - gemfiles/embulk-0.6.21
-  - gemfiles/embulk-0.6.22
-  - gemfiles/embulk-0.6.23
-  - gemfiles/embulk-0.6.24
-  - gemfiles/embulk-0.6.25
-  - gemfiles/embulk-0.6-latest
+  - gemfiles/embulk-0.7-latest
+  - gemfiles/embulk-0.7.2
+  - gemfiles/embulk-0.7.3
+  - gemfiles/embulk-0.7.4
   - gemfiles/embulk-latest
 
 matrix:
   allow_failures:
     - gemfile: gemfiles/embulk-0.6.22
-    - gemfile: gemfiles/embulk-latest
