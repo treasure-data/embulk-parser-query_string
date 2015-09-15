@@ -66,6 +66,7 @@ module Embulk
         begin
           Hash[URI.decode_www_form(line)]
         rescue ArgumentError
+          Embulk.logger.warn "Failed parse: #{line}"
           nil
         end
       end
