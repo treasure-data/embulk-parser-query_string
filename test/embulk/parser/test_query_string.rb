@@ -32,6 +32,7 @@ module Embulk
         end
 
         def test_with_invalid
+          mock(Embulk.logger).warn(/#{invalid_line}/) # display whole line if given line is invalid
           result = QueryString.parse(invalid_line)
           assert_nil(result)
         end
