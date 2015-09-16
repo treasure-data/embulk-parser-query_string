@@ -56,8 +56,8 @@ module Embulk
       class << self
         def sample_lines_with_same_keys
           [
-            %Q(foo=1&bar=vv&baz=3),
-            %Q(foo=2&bar=ss&baz=a),
+            %Q(foo=1&bar=vv&baz=3&time=2015-07-08T16%3A25%3A46%2B09%3A00),
+            %Q(foo=2&bar=ss&baz=a&time=2015-07-09T16%3A25%3A46),
           ]
         end
 
@@ -66,6 +66,7 @@ module Embulk
             {name: "foo", type: :long},
             {name: "bar", type: :string},
             {name: "baz", type: :string},
+            {name: "time", type: :timestamp, format: "%Y-%m-%dT%H:%M:%S"}
           ]
         end
 
@@ -95,7 +96,11 @@ module Embulk
         end
 
         def columns_with_invalid
-          columns_with_same_keys
+          [
+            {name: "foo", type: :long},
+            {name: "bar", type: :string},
+            {name: "baz", type: :string},
+          ]
         end
       end
 

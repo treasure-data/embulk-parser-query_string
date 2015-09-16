@@ -19,20 +19,19 @@ module Embulk
         records = sample_lines.map do |line|
           Parser::QueryString.parse(line, options) || {}
         end
-        format = records.inject({}) do |result, record|
-          record.each_pair do |key, value|
-            (result[key] ||= []) << value
-          end
-          result
+
+        columns = Guess::SchemaGuess.from_hash_records(records)
+        columns = columns.map do |c|
+          column = {name: c.name, type: c.type}
+          column[:format] = c.format if c.format
+          column
         end
-        guessed = {type: "query_string", columns: []}
-        format.each_pair do |key, values|
-          if values.any? {|value| value.match(/[^0-9]/) }
-            guessed[:columns] << {name: key, type: :string}
-          else
-            guessed[:columns] << {name: key, type: :long}
-          end
-        end
+
+        guessed = {
+          type: "query_string",
+          columns: columns
+        }
+
         return {"parser" => guessed}
       end
     end
