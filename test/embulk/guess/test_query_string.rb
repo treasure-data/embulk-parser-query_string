@@ -63,9 +63,9 @@ module Embulk
 
         def columns_with_same_keys
           [
-            {name: "foo", type: :long},
             {name: "bar", type: :string},
             {name: "baz", type: :string},
+            {name: "foo", type: :long},
             {name: "time", type: :timestamp, format: "%Y-%m-%dT%H:%M:%S"}
           ]
         end
@@ -79,9 +79,9 @@ module Embulk
 
         def columns_with_different_keys
           [
-            {name: "foo", type: :long},
             {name: "bar", type: :string},
             {name: "baz", type: :string},
+            {name: "foo", type: :long},
             {name: "hoge", type: :long},
             {name: "xxx", type: :string},
           ]
@@ -97,9 +97,9 @@ module Embulk
 
         def columns_with_invalid
           [
-            {name: "foo", type: :long},
             {name: "bar", type: :string},
             {name: "baz", type: :string},
+            {name: "foo", type: :long},
           ]
         end
       end

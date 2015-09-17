@@ -43,19 +43,19 @@ module Embulk
       end
 
       assert_true(out.include?(<<-CONTENT))
-FOO,1
-FOO,2
-FOO,3
-FOO,4
-FOO,5
-FOO,6
-FOO,7
-FOO,8
-FOO,9
-FOO,10
-FOO,11
-FOO,12
-FOO,13
+1,FOO
+2,FOO
+3,FOO
+4,FOO
+5,FOO
+6,FOO
+7,FOO
+8,FOO
+9,FOO
+10,FOO
+11,FOO
+12,FOO
+13,FOO
       CONTENT
     end
 
@@ -98,8 +98,8 @@ in:
     newline: CRLF
     type: query_string
     columns:
-    - {name: foo, type: string}
     - {name: bar, type: long}
+    - {name: foo, type: string}
 exec: {}
 out: {type: stdout}
 YAML

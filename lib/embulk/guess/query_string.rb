@@ -4,6 +4,24 @@ module Embulk
   module Guess
     # $ embulk guess -g "query_string" partial-config.yml
 
+    module SchemaGuess
+      class << self
+
+        # NOTE: Original #from_hash_records uses keys of the first data only,
+        #       but some query key may exist the second line or later.
+        # original Embulk::Guess::SchemaGuess is https://github.com/embulk/embulk/blob/57b42c31d1d539177e1e818f294550cde5b69e1f/lib/embulk/guess/schema_guess.rb#L16-L24
+        def from_hash_records(array_of_hash)
+          array_of_hash = Array(array_of_hash)
+          if array_of_hash.empty?
+            raise "SchemaGuess Can't guess schema from no records"
+          end
+          column_names = array_of_hash.map(&:keys).inject([]) {|r, a| r + a }.uniq.sort
+          samples = array_of_hash.to_a.map {|hash| column_names.map {|name| hash[name] } }
+          from_array_records(column_names, samples)
+        end
+      end
+    end
+
     class QueryString < LineGuessPlugin
       Plugin.register_guess("query_string", self)
 
