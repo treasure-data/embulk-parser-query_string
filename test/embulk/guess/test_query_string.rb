@@ -16,6 +16,8 @@ module Embulk
         end
 
         def test_columns(data)
+          stub(Embulk.logger).warn {}
+
           sample_lines, columns = data
           actual = QueryString.new.guess_lines(config, sample_lines)
           expected = {
@@ -25,6 +27,12 @@ module Embulk
             }
           }
           assert_equal(expected, actual)
+        end
+
+        def test_warn_invalid_columns
+          mock(Embulk.logger).warn(/Failed parse/)
+
+          QueryString.new.guess_lines(config, self.class.sample_lines_with_invalid)
         end
 
         data do
