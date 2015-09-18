@@ -16,6 +16,8 @@ module Embulk
         end
 
         def test_columns(data)
+          stub(Embulk.logger).warn {}
+
           sample_lines, columns = data
           actual = QueryString.new.guess_lines(config, sample_lines)
           expected = {
