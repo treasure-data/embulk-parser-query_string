@@ -29,6 +29,12 @@ module Embulk
           assert_equal(expected, actual)
         end
 
+        def test_warn_invalid_columns
+          mock(Embulk.logger).warn(/Failed parse/)
+
+          QueryString.new.guess_lines(config, self.class.sample_lines_with_invalid)
+        end
+
         data do
           valid_columns = {
             "parser" => {
