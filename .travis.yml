@@ -1,6 +1,11 @@
 language: ruby
 rvm:
 - jruby-9000
+
+before_install:
+- rvm get head
+- rvm use jruby-9.0.1.0 --install
+
 addons:
   code_climate:
     repo_token:
