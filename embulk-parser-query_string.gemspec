@@ -1,7 +1,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "embulk-parser-query_string"
-  spec.version       = "0.2.0"
+  spec.version       = "0.2.1"
   spec.authors       = ["yoshihara", "uu59"]
   spec.summary       = "Query String parser plugin for Embulk"
   spec.description   = "Parses Query String files read by other file input plugins."
@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency 'embulk', [">= 0.6.10", "!= 0.6.22", "< 1.0"]
+  spec.add_development_dependency 'embulk', [">= 0.6.10", "!= 0.6.22", "< 0.7"]
   spec.add_development_dependency 'bundler', ['~> 1.0']
   spec.add_development_dependency 'everyleaf-embulk_helper'
   spec.add_development_dependency 'rake', ['>= 10.0']
