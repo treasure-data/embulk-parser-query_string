@@ -1,7 +1,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "embulk-parser-query_string"
-  spec.version       = "0.2.1"
+  spec.version       = "0.3.0"
   spec.authors       = ["yoshihara", "uu59"]
   spec.summary       = "Query String parser plugin for Embulk"
   spec.description   = "Parses Query String files read by other file input plugins."

@@ -1,3 +1,9 @@
+## 0.3.0 - 2015-10-06
+
+**This version supports Embulk 0.7 or later, and drops Embulk 0.6 or earlier, so if you want to use this plugin with Embulk 0.6 or earlier, please use 0.2.1.**
+
+* [enhancement] Support Embulk 0.7 or later and drop Embulk 0.6 or earlier [#32](https://github.com/treasure-data/embulk-parser-query_string/pull/32) [#33](https://github.com/treasure-data/embulk-parser-query_string/pull/33)
+
 ## 0.2.1 - 2015-09-30
 
 * [maintenance] Suppress logger in test [#31](https://github.com/treasure-data/embulk-parser-query_string/pull/31)
@@ -9,7 +15,7 @@
 
 ## 0.2.0 - 2015-07-29
 
-This version breaks backword compatibility. With this version, if you use config created by embulk-parser-query_string 0.1.3 or earlier, you should replace `schema:` key name with `columns:` in your config file (e.g. `config.yml`) .
+**This version breaks backword compatibility.** With this version, if you use config created by embulk-parser-query_string 0.1.3 or earlier, you should replace `schema:` key name with `columns:` in your config file (e.g. `config.yml`) .
 
 * [fixed] Use "column" as key for schema in config file [#22](https://github.com/treasure-data/embulk-parser-query_string/pull/22) [[reported by @muga](https://github.com/treasure-data/embulk-parser-query_string/issues/21). Thanks!!]
 * [enhancement] Display cast error log to human [#19](https://github.com/treasure-data/embulk-parser-query_string/pull/19)
