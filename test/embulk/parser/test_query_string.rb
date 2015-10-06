@@ -70,7 +70,7 @@ module Embulk
         end
 
         def invalid_line
-          "invalid=www=form"
+          "あいうえお=invalid=form"
         end
       end
 

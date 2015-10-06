@@ -13,7 +13,9 @@ Currently, this plugin supports minimum case, some edge cases are unsupported as
 
 ## Overview
 
-Required Embulk version >= 0.6.17.
+Required Embulk version >= 0.7.2.
+
+**NOTE: If you use Embulk < 0.7, you should use embulk-parser-query_string <= 0.1.3.**
 
 * **Plugin type**: parser
 * **Guess supported**: yes
