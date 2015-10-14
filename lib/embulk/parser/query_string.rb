@@ -95,8 +95,7 @@ module Embulk
               value.to_s
             end
           rescue => e
-            Embulk.logger.error "Cast failed '#{value}' as '#{column.type}' (key is '#{column.name}')"
-            raise e
+            raise ConfigError.new("Cast failed '#{value}' as '#{column.type}' (key is '#{column.name}')")
           end
         end
 

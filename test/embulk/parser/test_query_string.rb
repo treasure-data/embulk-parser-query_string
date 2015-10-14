@@ -6,6 +6,7 @@ module Embulk
   module Parser
     class QueryStringTest < Test::Unit::TestCase
       class TestParse < self
+
         def test_without_options
           result = QueryString.parse(line)
           assert_equal(expected, result)
@@ -94,6 +95,16 @@ module Embulk
           plugin.send(:process_line, value_nonexist_line)
         end
 
+        def test_wrong_type_configured
+          # NOTE: assert_raise(Embulk::ConfigError) do ... end can't detect correctly
+          begin
+            plugin.send(:process_line, value_invalid_data_type)
+            assert false
+          rescue => e
+            assert e.is_a?(Embulk::ConfigError)
+          end
+        end
+
         private
 
         def line
@@ -102,6 +113,10 @@ module Embulk
 
         def value_nonexist_line
           "foo=FOO&bar=&baz=2015-07-08T16:25:46"
+        end
+
+        def value_invalid_data_type
+          "foo=FOO&bar=&baz=not+a+time"
         end
       end
 
