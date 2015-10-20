@@ -30,7 +30,7 @@ module Embulk
         end
 
         def test_warn_invalid_columns
-          mock(Embulk.logger).warn(/Failed parse/)
+          mock(Embulk.logger).warn(anything)
 
           QueryString.new.guess_lines(config, self.class.sample_lines_with_invalid)
         end

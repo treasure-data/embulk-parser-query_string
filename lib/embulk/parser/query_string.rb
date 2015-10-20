@@ -50,6 +50,20 @@ module Embulk
         page_builder.finish
       end
 
+      def self.valid_query_string?(qs)
+        if qs.match(/[\s]/)
+          Embulk.logger.warn "'#{qs}' contains unescaped space"
+          return false
+        end
+
+        if qs.match(/[^\x20-\x7e]/)
+          Embulk.logger.warn "'#{qs}' contains non-ascii character (maybe unescaped)"
+          return false
+        end
+
+        true
+      end
+
       def self.parse(line, options = {})
         if options[:capture]
           line = line.match(options[:capture]).to_a[1] || ""
@@ -65,7 +79,11 @@ module Embulk
 
         begin
           uri = Addressable::URI.parse("?#{line}")
-          uri.query_values(Hash)
+          if valid_query_string?(uri.query)
+            uri.query_values(Hash)
+          else
+            nil
+          end
         rescue ArgumentError
           Embulk.logger.warn "Failed parse: #{line}"
           nil
