@@ -1,3 +1,9 @@
+## 0.3.1 - 2015-10-20
+
+* [enhancement] Raise ConfigError if type cast failed [#34](https://github.com/treasure-data/embulk-parser-query_string/pull/34)
+* [maintenance] Use addressable gem to parse uri [#35](https://github.com/treasure-data/embulk-parser-query_string/pull/35)
+* [maintenance] Fix coverage [#36](https://github.com/treasure-data/embulk-parser-query_string/pull/36)
+
 ## 0.3.0 - 2015-10-06
 
 **This version supports Embulk 0.7 or later, and drops Embulk 0.6 or earlier, so if you want to use this plugin with Embulk 0.6 or earlier, please use 0.2.1.**
