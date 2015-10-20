@@ -1,6 +1,12 @@
 language: ruby
 rvm:
-- jruby-19mode
+  - jruby-9.0.1.0
+jdk:
+  - oraclejdk8
+env:
+  global:
+    - JRUBY_OPTS="-Xcli.debug=true --debug"
+
 addons:
   code_climate:
     repo_token:
@@ -8,14 +14,9 @@ addons:
 notifications:
   slack:
     secure: "QRZ6zQxcRdN2XylIz+b46TbYIv7x5Ko7Y0Mi0aGbf7Wg1xfnS4X2FZKp8gF+RH1qjT6CYsQFUpPBhPVCMx0fP0ik5/gBrdngrj0htludvQ5CTK2oVegM1VC5NSn+gi8bt2F20Ode9fxU5OS1HDzNR9sjPz3W7miMUNDZoYPy77Om/CvmVkBbGyMkWnfwhEvwnL8JpBNpklDvrUUKznNsAcSbKQBMBAglFMds/OaHXCkK142zMbSlHMctch1VDAKhX9/6M3v8v6ZRheX68+VVCz3nTrTF0/lnYh3ig9ey3DNlgkZUqK2gmypnhTE6tpeibHdyVa8qOMNzyAgltu1qIhFHN390WMk9gZXEcvWG3m++PMAIKKtd4varbH1vdCeHOGUV7GRgarcfSMvJ54I9xc5GkUnAhjRKj8xDzYzhkXwApD8eqWb2RgGXUm6G4cKj0MeQ4WBqHr9FOW/4EJcZoztFi0YlP7KE+6xptBJU479KSsv31BwHrMfblObOOj58C7gUfdbTCByxng0u1axxvixL8zJwgHvFND3/4yoXoCCgm0DXBPbi6B5xpt8QmN6K4E5sMGrppTI7VwJqkcwkVD0EEeCedRNiWLTaxlKpLYxYnoXwEnpm9o2WXWa+PjkWeawsnJvV5IAt6oJhaK22VqJN86Macuu+nCdeF1/0TZU="
-jdk:
-- oraclejdk8
 
 gemfile:
 <% versions.each do |file| -%>
   - gemfiles/<%= file %>
 <% end -%>
 
-matrix:
-  allow_failures:
-    - gemfile: gemfiles/embulk-0.6.22
