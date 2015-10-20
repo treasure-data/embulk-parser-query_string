@@ -1,4 +1,4 @@
-require "uri"
+require "addressable/uri"
 
 module Embulk
   module Parser
@@ -64,7 +64,8 @@ module Embulk
         end
 
         begin
-          Hash[URI.decode_www_form(line)]
+          uri = Addressable::URI.parse("?#{line}")
+          uri.query_values(Hash)
         rescue ArgumentError
           Embulk.logger.warn "Failed parse: #{line}"
           nil
