@@ -1,13 +1,11 @@
 language: ruby
 rvm:
   - jruby-9.0.1.0
-env:
-  - JRUBY_OPTS="-Xcli.debug=true --debug"
 jdk:
   - oraclejdk8
-before_install:
-  - rvm get head
-  - rvm use jruby-9.0.1.0 --install
+env:
+  global:
+    - JRUBY_OPTS="-Xcli.debug=true --debug"
 
 addons:
   code_climate:
@@ -24,6 +22,3 @@ gemfile:
   - gemfiles/embulk-0.7.4
   - gemfiles/embulk-latest
 
-matrix:
-  allow_failures:
-    - gemfile: gemfiles/embulk-0.6.22
