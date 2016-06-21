@@ -102,7 +102,7 @@ module Embulk
           name = column.name
           value = record[name]
 
-          next nil unless value
+          next nil if value.nil? || value.empty?
 
           begin
             case column.type
@@ -110,6 +110,8 @@ module Embulk
               value.strip.empty? ? nil : Integer(value)
             when :timestamp
               value.strip.empty? ? nil : Time.parse(value)
+            when :boolean
+              falsey_value?(value) ? false : true
             else
               value.to_s
             end
@@ -119,6 +121,10 @@ module Embulk
         end
 
         page_builder.add(values)
+      end
+
+      def falsey_value?(str)
+        str == "false"
       end
     end
   end
