@@ -107,16 +107,22 @@ module Embulk
 
         data do
           [
-            ["true", ["qux=true", true]],
-            ["false", ["qux=false", false]],
-            ["f", ["qux=f", true]],
-            ["empty", ["qux=", nil]],
+            ["true"  , ["true"  , true]]  ,
+            ["false" , ["false" , false]] ,
+            ["t"     , ["t"     , true]]  ,
+            ["f"     , ["f"     , false]] ,
+            ["yes"   , ["yes"   , true]]  ,
+            ["no"    , ["no"    , false]] ,
+            ["on"    , ["on"    , true]]  ,
+            ["off"   , ["off"   , false]] ,
+            ["foo"   , ["foo"   , false]] ,
+            ["empty" , [""      , nil]]   ,
           ]
         end
         def test_boolean_as_false(data)
-          line, expected = data
+          value, expected = data
           mock(page_builder).add([anything, anything, anything, expected])
-          plugin.send(:process_line, line)
+          plugin.send(:process_line, "qux=#{value}")
         end
 
         private
