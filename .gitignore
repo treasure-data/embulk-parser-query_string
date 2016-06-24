@@ -3,3 +3,12 @@
 /tmp/
 /.bundle/
 /Gemfile.lock
+*.gemspec
+.gradle/
+/classpath/
+build/
+.idea
+/.settings/
+/.metadata/
+.classpath
+.project

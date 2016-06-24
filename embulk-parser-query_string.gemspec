@@ -1,16 +1,16 @@
 
 Gem::Specification.new do |spec|
   spec.name          = "embulk-parser-query_string"
-  spec.version       = "0.3.1"
-  spec.authors       = ["yoshihara", "uu59"]
-  spec.summary       = "Query String parser plugin for Embulk"
-  spec.description   = "Parses Query String files read by other file input plugins."
-  spec.email         = ["h.yoshihara@everyleaf.com", "k@uu59.org"]
+  spec.version       = "0.4.0"
+  spec.authors       = ["yoshihara", "uu59", "Muga Nishizawa"]
+  spec.summary       = %[Query String parser plugin for Embulk]
+  spec.description   = %[Parses Query String files read by other file input plugins.]
+  spec.email         = ["h.yoshihara@everyleaf.com", "k@uu59.org", "muga.nishizawa@gmail.com"]
   spec.licenses      = ["Apache2"]
   spec.homepage      = "https://github.com/treasure-data/embulk-parser-query_string"
 
   spec.files         = `git ls-files`.split("\n") + Dir["classpath/*.jar"]
-  spec.test_files    = spec.files.grep(%r{^(test|spec)/})
+  spec.test_files    = spec.files.grep(%r"^(test|spec)/")
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'addressable'
