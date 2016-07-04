@@ -1,3 +1,7 @@
+## 0.3.2 - 2016-07-04
+
+* [enhancement] String "false" as false [#37](https://github.com/treasure-data/embulk-parser-query_string/pull/37)
+
 ## 0.3.1 - 2015-10-20
 
 * [enhancement] Raise ConfigError if type cast failed [#34](https://github.com/treasure-data/embulk-parser-query_string/pull/34)
