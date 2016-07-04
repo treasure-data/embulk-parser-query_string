@@ -102,7 +102,7 @@ module Embulk
           name = column.name
           value = record[name]
 
-          next nil unless value
+          next nil if value.nil? || value.empty?
 
           begin
             case column.type
@@ -110,6 +110,8 @@ module Embulk
               value.strip.empty? ? nil : Integer(value)
             when :timestamp
               value.strip.empty? ? nil : Time.parse(value)
+            when :boolean
+              truthy_value?(value)
             else
               value.to_s
             end
@@ -119,6 +121,18 @@ module Embulk
         end
 
         page_builder.add(values)
+      end
+
+      def truthy_value?(str)
+        # Same as Embulk csv parser
+        # https://github.com/embulk/embulk/blob/v0.8.9/embulk-standards/src/main/java/org/embulk/standards/CsvParserPlugin.java#L35-L41
+        %w(
+          true True TRUE
+          yes Yes YES
+          t T y Y
+          on On ON
+          1
+        ).include?(str)
       end
     end
   end
